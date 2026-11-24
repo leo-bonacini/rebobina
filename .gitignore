@@ -1,0 +1,8 @@
+node_modules/
+*.mp4
+*.webm
+*.mkv
+*.mov
+*.avi
+!assets/*
+.DS_Store
