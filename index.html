@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebobina</title>
+<meta name="description" content="Compress, speed up, mute or convert a video in your browser. It's processed on your device and never uploaded.">
+<meta property="og:image" content="assets/logo.svg">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<script>
+  // Runs before first paint so a saved dark theme doesn't flash light
+  try {
+    var theme = localStorage.getItem("rebobina-theme");
+    if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+  } catch (e) {}
+</script>
+</head>
+<body>
+<main class="app">
+  <header class="header">
+    <h1><img src="assets/logo.svg" alt=""> Rebobina</h1>
+    <div class="settings">
+      <select id="language"></select>
+      <button type="button" id="theme"></button>
+    </div>
+  </header>
+  <p class="tagline" data-i18n="description"></p>
+
+  <section>
+    <h2 data-step="01" data-i18n="fileSection"></h2>
+    <label class="dropzone" id="dropzone">
+      <input type="file" id="file-input" accept="video/*,.mkv,.flv,.wmv,.mts,.m2ts,.ts,.ogv,.gif">
+      <span id="dropzone-text" data-i18n-html="dropzone"></span>
+    </label>
+    <p class="file-info" id="file-info"></p>
+  </section>
+
+  <section>
+    <h2 data-step="02" data-i18n="operationsSection"></h2>
+    <div class="grid">
+      <label><span data-i18n="speed"></span><select id="speed"></select></label>
+      <label><span data-i18n="resolution"></span><select id="resolution"></select></label>
+      <label class="check"><input type="checkbox" id="compress"> <span data-i18n="compress"></span></label>
+      <label class="check"><input type="checkbox" id="mute"> <span data-i18n="mute"></span></label>
+      <label class="wide"><span data-i18n="level"></span><select id="level"></select></label>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-step="03" data-i18n="formatSection"></h2>
+    <div class="grid">
+      <label><span data-i18n="format"></span><select id="format"></select></label>
+      <div id="gif-options" class="grid-inner" hidden>
+        <label><span data-i18n="gifWidth"></span><select id="gif-width"></select></label>
+        <label><span data-i18n="gifFps"></span><select id="gif-fps"></select></label>
+      </div>
+      <label class="wide"><span data-i18n="outputName"></span><input type="text" id="output-name" spellcheck="false"></label>
+    </div>
+    <p class="tip" id="gif-tip" data-i18n="gifTip" hidden></p>
+  </section>
+
+  <section>
+    <div class="buttons">
+      <button type="button" class="button primary" id="start" disabled></button>
+      <a class="button download" id="download" data-i18n="download" hidden></a>
+    </div>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <div class="readout">
+      <p class="status" id="status" aria-live="polite"></p>
+      <p class="progress-text" id="progress-text"></p>
+    </div>
+    <label class="check log-toggle"><input type="checkbox" id="show-log"> <span data-i18n="showLog"></span></label>
+    <pre class="log" id="log" hidden></pre>
+  </section>
+
+  <footer class="credits">
+    <p class="counter" id="counter" hidden></p>
+    <p>
+      <span data-i18n="footerBuilt"></span>
+      <a href="https://ffmpegwasm.netlify.app/">ffmpeg.wasm</a> <span data-i18n="footerLicense"></span>
+      <a href="https://github.com/" id="link-source" data-i18n="source"></a>
+    </p>
+  </footer>
+</main>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
